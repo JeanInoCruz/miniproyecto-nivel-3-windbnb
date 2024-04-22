@@ -48,7 +48,7 @@ const ItemSearch = ({ filterStays, closeModal, onSelectCity }) => {
   };
 
   return (
-    <div className="fixed z-50 top-0 w-full bg-white lg:h-3/5 xl:mx-auto md:px-10 lg:px-16 px-4">
+    <div className="fixed z-50 top-0 w-full bg-white lg:h-2/5 xl:mx-auto md:px-10 lg:px-16 px-4">
       <form
         className="flex lg:flex-row flex-col lg:gap-0 justify-between font-mulish lg:my-10 my-5"
         onSubmit={submitHandler}
@@ -114,7 +114,7 @@ const ItemSearch = ({ filterStays, closeModal, onSelectCity }) => {
             autoComplete="off"
           />
           {showGuests && (
-            <ul className="font-mulish text-gray3 text-base flex flex-col lg:gap-10 gap-5 lg:mt-12 mt-6">
+            <ul className="font-mulish text-gray3 text-base flex flex-col lg:gap-8 gap-5 lg:mt-12 mt-6">
               <li>
                 <p className="text-sm text-black1 font-bold">Adults</p>
                 <p className="text-sm text-gray1">Ages 13 or above </p>

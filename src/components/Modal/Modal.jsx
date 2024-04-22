@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
 import ItemSearch from "../ItemSearch/ItemSearch";
-import { createPortal } from "react-dom";
 
 const Modal = ({ filterStays, closeModal, onSelectCity }) => {
   const [mounted, setMounted] = useState(false);
@@ -12,30 +11,25 @@ const Modal = ({ filterStays, closeModal, onSelectCity }) => {
 
   console.log("Modal rendered");
 
-  if (!mounted) return null;
+  const modalStyle = {
+    display: mounted ? "block" : "none",
+    
+  };
 
   return (
     <Fragment>
-      {createPortal(<Backdrop closeModal={closeModal} />, document.getElementById("backdrop"))}
-      {createPortal(
+      <div className="backdrop" style={modalStyle}>
+        <div
+          className="fixed bg-[#00000085] min-h-screen w-full top-0 left-0 z-10"
+          onClick={() => closeModal()}
+        ></div>
         <ItemSearch
           filterStays={filterStays}
           closeModal={closeModal}
           onSelectCity={onSelectCity}
-        />,
-        document.getElementById("modal")
-      )}
+        />
+      </div>
     </Fragment>
-  );
-};
-
-const Backdrop = ({ closeModal }) => {
-  console.log("Backdrop rendered");
-  return (
-    <div
-      className="fixed bg-[#00000080] min-h-screen w-full top-0 left-0 z-10"
-      onClick={() => closeModal()}
-    ></div>
   );
 };
 
