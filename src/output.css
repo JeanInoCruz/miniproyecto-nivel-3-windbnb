@@ -8,6 +8,10 @@
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
 */
+* {
+  --tw-scroll-snap-strictness: none !important;
+}
+
 
 *,
 ::before,
@@ -461,7 +465,7 @@ video {
   --tw-pan-x:  ;
   --tw-pan-y:  ;
   --tw-pinch-zoom:  ;
-  --tw-scroll-snap-strictness: proximity;
+  --tw-scroll-snap-strictness: none;
   --tw-gradient-from-position:  ;
   --tw-gradient-via-position:  ;
   --tw-gradient-to-position:  ;
@@ -515,7 +519,7 @@ video {
   --tw-pan-x:  ;
   --tw-pan-y:  ;
   --tw-pinch-zoom:  ;
-  --tw-scroll-snap-strictness: proximity;
+  --tw-scroll-snap-strictness: none;
   --tw-gradient-from-position:  ;
   --tw-gradient-via-position:  ;
   --tw-gradient-to-position:  ;

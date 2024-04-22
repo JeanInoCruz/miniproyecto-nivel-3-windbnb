@@ -1,8 +1,7 @@
-// Drawer.jsx
 import React, { useState, useEffect } from "react";
-import Input from "./Input";
-import Button from "./Button";
-import Counter from "./Counter";
+import Input from "../Input/Input";
+import Button from "../Button/Button";
+import GuessCount from "../GuessCount/GuessCount";
 
 const locations = [
   "Helsinki, Finland",
@@ -11,30 +10,40 @@ const locations = [
   "Vaasa, Finland",
 ];
 
-const Drawer = ({ filterStays, closeModal }) => {
+const ItemSearch = ({ filterStays, closeModal, onSelectCity }) => {
   const [showLocations, setShowLocations] = useState(false);
   const [location, setLocation] = useState("");
   const [showGuests, setShowGuests] = useState(false);
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
   const [guests, setGuests] = useState(0);
+  console.log("Drawer rendered");
 
   useEffect(() => {
     setGuests(adults + children);
   }, [adults, children]);
 
+  useEffect(() => {
+    if (location !== "") {
+      filterStays(location, guests);
+    }
+  }, [location, guests, filterStays]);
+
   const locationChangeHandler = (e) => {
-    setLocation(e.target.value);
+    const { value } = e.target;
+    console.log(e.target, value);
+    setLocation(value);
   };
 
   const selectLocationHandler = (selectedLocation) => {
     setLocation(selectedLocation);
+    onSelectCity(selectedLocation);
     setShowLocations(false);
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    filterStays(location, adults + children);
+    filterStays(location, guests);
     // closeModal();
   };
 
@@ -64,21 +73,25 @@ const Drawer = ({ filterStays, closeModal }) => {
           />
           {showLocations && (
             <ul className="font-mulish text-gray3 text-base flex flex-col lg:gap-7 gap-5 lg:mt-12 mt-6 lg:mb-0 mb-7">
-              {locations.map((availableLocation) => {
-                return (
-                  <li key={availableLocation}>
-                    <Button
-                      className="flex items-center gap-2"
-                      onClick={() => selectLocationHandler(availableLocation)}
-                    >
-                      <span className="material-symbols-rounded">
-                        location_on
-                      </span>
-                      {availableLocation}
-                    </Button>
-                  </li>
-                );
-              })}
+              {locations
+                .filter((loc) =>
+                  loc.toLowerCase().includes(location.toLowerCase())
+                )
+                .map((availableLocation) => {
+                  return (
+                    <li key={availableLocation}>
+                      <Button
+                        className="flex items-center gap-2"
+                        onClick={() => selectLocationHandler(availableLocation)}
+                      >
+                        <span className="material-symbols-rounded">
+                          location_on
+                        </span>
+                        {availableLocation}
+                      </Button>
+                    </li>
+                  );
+                })}
             </ul>
           )}
         </div>
@@ -105,16 +118,12 @@ const Drawer = ({ filterStays, closeModal }) => {
               <li>
                 <p className="text-sm text-black1 font-bold">Adults</p>
                 <p className="text-sm text-gray1">Ages 13 or above </p>
-                <Counter
-                  type="adults"
-                  setCount={setAdults}
-                  count={adults}
-                />
+                <GuessCount type="adults" setCount={setAdults} count={adults} />
               </li>
               <li>
                 <p className="text-sm text-black1 font-bold">Children</p>
                 <p className="text-sm text-gray1">Ages 2-12</p>
-                <Counter
+                <GuessCount
                   type="children"
                   setCount={setChildren}
                   count={children}
@@ -125,7 +134,7 @@ const Drawer = ({ filterStays, closeModal }) => {
         </div>
         <div className="flex items-center lg:border lg:rounded-r-2xl border-gray2 py-1 lg:self-start self-center lg:mt-0 mt-5">
           <Button
-          onClick={() => closeModal()}
+            onClick={closeModal}
             type="submit"
             className="flex items-center gap-3 px-7 py-3 lg:mx-32 rounded-2xl bg-darkOrange"
           >
@@ -138,4 +147,4 @@ const Drawer = ({ filterStays, closeModal }) => {
   );
 };
 
-export default Drawer;
+export default ItemSearch;

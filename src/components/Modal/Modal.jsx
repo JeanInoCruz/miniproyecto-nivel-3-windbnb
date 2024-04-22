@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
-import Drawer from "./Drawer";
+import ItemSearch from "../ItemSearch/ItemSearch";
 import { createPortal } from "react-dom";
 
-const Modal = ({ filterStays, closeModal }) => {
+const Modal = ({ filterStays, closeModal, onSelectCity }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -17,7 +17,14 @@ const Modal = ({ filterStays, closeModal }) => {
   return (
     <Fragment>
       {createPortal(<Backdrop closeModal={closeModal} />, document.getElementById("backdrop"))}
-      {createPortal(<Drawer filterStays={filterStays} closeModal={closeModal} />, document.getElementById("modal"))}
+      {createPortal(
+        <ItemSearch
+          filterStays={filterStays}
+          closeModal={closeModal}
+          onSelectCity={onSelectCity}
+        />,
+        document.getElementById("modal")
+      )}
     </Fragment>
   );
 };
@@ -31,4 +38,5 @@ const Backdrop = ({ closeModal }) => {
     ></div>
   );
 };
+
 export default Modal;

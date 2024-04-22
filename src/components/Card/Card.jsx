@@ -6,7 +6,7 @@ const Card = (props) => {
       <div>
         <img
           src={props.photo}
-          className="rounded-3xl lg:w-[410px] lg:h-[270px] md:w-[450px] md:h-[300px] object-cover"
+          className="rounded-3xl lg:w-[395px] lg:h-[269px] md:w-[450px] md:h-[300px] object-cover"
           alt={props.title}
           loading="lazy"
         />
@@ -21,7 +21,7 @@ const Card = (props) => {
         <p className="font-medium text-gray4 text-sm">{props.type}</p>
         <div className="flex gap-1 ms-auto">
           <span className="material-symbols-rounded text-darkOrange">star</span>
-          <p className="mt-[0.15rem]">{props.rating}</p>
+          <p className="mt-[0.12rem]">{props.rating}</p>
         </div>
       </div>
       <p className="text-base font-semibold text-black1">{props.title}</p>

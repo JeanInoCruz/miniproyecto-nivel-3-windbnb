@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import logo from "../assets/logo.svg";
-import Input from "./Input";
-import Button from "./Button";
+import React from "react";
+import logo from "../../assets/logo.svg";
+import Input from "../Input/Input";
+import Button from "../Button/Button";
 
-const NavBar = ({ openModal, closeModal, guests }) => {
+
+const Nav = ({ selectedLocation, openModal, closeModal, guests }) => {
   return (
     <nav className="mt-5 flex sm:flex-row sm:gap-0 gap-5 flex-col justify-between sm:items-center font-mulish">
       <div className="self-start sm:self-center">
@@ -22,6 +23,7 @@ const NavBar = ({ openModal, closeModal, guests }) => {
           id="location"
           readOnly
           placeholder="Add location"
+          value={selectedLocation ? selectedLocation : ""}
           className="sm:px-5 sm:py-3 px-3 py-2 border rounded-l-xl border-gray2 shadow-cu w-5/12 sm:w-auto"
           onClick={() => openModal()}
         />
@@ -49,4 +51,4 @@ const NavBar = ({ openModal, closeModal, guests }) => {
   );
 };
 
-export default NavBar;
+export default Nav;

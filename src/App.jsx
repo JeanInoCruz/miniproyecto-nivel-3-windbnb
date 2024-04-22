@@ -1,14 +1,15 @@
+// App.jsx
 import React, { useState } from "react";
-import Main from "./components/Main";
-import NavBar from "./components/NavBar";
-import Footer from "./components/Footer";
-import Modal from "./components/Modal";
-
+import CardContainer from "./components/CardContainer/CardContainer";
+import Nav from "./components/Nav/Nav";
+import Footer from "./components/Footer/Footer";
+import Modal from "./components/Modal/Modal";
 import staysData from "./data/stays.json";
 
 function App() {
   const [modalOpen, setModalOpen] = useState(false);
   const [filteredStays, setFilteredStays] = useState(staysData);
+  const [selectedCity, setSelectedCity] = useState("");
   const [guests, setGuests] = useState(0);
 
   const openModal = () => {
@@ -24,9 +25,10 @@ function App() {
   const filterStays = (location, sum) => {
     console.log("filterStays called");
     let filtered = staysData;
+    const rs = location.trim().split(",")[0].trim();
     if (location) {
       filtered = filtered.filter(
-        (stay) => stay.city.toLowerCase() === location.toLowerCase()
+        (stay) => stay.city.toLowerCase() === rs.toLowerCase()
       );
     }
     if (sum > 0) {
@@ -36,17 +38,21 @@ function App() {
     setGuests(sum);
   };
 
+  const onSelectCity = (city) => {
+    setSelectedCity(city);
+  };
+
   return (
     <div className="xl:container xl:mx-auto md:px-8 px-5">
       {modalOpen && (
         <Modal
           closeModal={closeModal}
           filterStays={filterStays}
-          setGuests={setGuests}
+          onSelectCity={onSelectCity}
         />
       )}
-      <NavBar openModal={openModal} closeModal={closeModal} guests={guests} />
-      <Main filteredStays={filteredStays} />
+      <Nav openModal={openModal} closeModal={closeModal} guests={guests} />
+      <CardContainer filteredStays={filteredStays} selectedCity={selectedCity} />
       <Footer />
     </div>
   );
